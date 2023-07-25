@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>get new img</title>
+	<link rel="stylesheet" type="text/css" href="static/css/style.css" />
+
+</head>
+<body>
+	<ul>
+        <li><a href="/home">Home</a></li>
+        <li><a class="active" href="/get_new_img">new img</a></li>
+        <li><a href="/history">history</a></li>
+        <li><a href="/signout">logout</a></li>
+    </ul>
+	<center>
+	<h1>your new img is: </h1>
+	<img src="{{img}}"width="800" height="500">
+	<div calss = "post_form">
+		<p>do you want to post it?</p>
+		<form  method="post" ,action="/get_new_img" >
+			<label for="choice">Yes/No</label>
+	      <select name="yesOrNo" id="yesOrNo">
+	        <option value="Yes">Yes</option>
+	        <option value="No">No</option>
+	      </select>
+	      <input type="submit" value="Submit" />
+		</form>
+	</div>
+	</center>
+</body>
+</html>

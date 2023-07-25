@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="static/css/signup.css" />   
+    <title>Signup</title>
+</head>
+<body>
+    <center>
+        <div class = "signup">
+            <form method="post" action="/signup">
+                <h4>
+                    Create an account
+                </h4>
+
+                <p >
+                    Please fill up your information below to sign up.
+                </p>
+
+                <div>
+                    <label>Email address</label>
+                    <div>
+                        <input type="email"  name="email" id="emailStr" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label>Password</label>
+                    <div class="input-group">
+                        <input type="password"  name="password" minlength="6">
+                    </div>
+                </div>
+                <div>
+                    <label>UserName</label>
+                    <div class="input-group">
+                        <input type="text"  name="username" minlength="6" maxlength="18">
+                    </div>
+                </div>
+                <div>
+                    <input type="submit"/>
+                </div>
+            </form>
+            <br>
+            <a href="/"><button>signin</button></a>
+        </div>
+    </center>
+</body>
+</html>

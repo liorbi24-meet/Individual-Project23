@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+    <title>Signin</title>
+</head>
+<body>
+    <center>
+    <form method="post" action="/">
+        <!-- Heading -->
+        <h4>
+        Log in to your account
+        </h4>
+
+        <p >
+        Please fill up your information below to sign in.
+        </p>
+
+        <div>
+            <label>Email address*</label>
+            <div>
+                <input type="email"  name="email" id="emailStr" required>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div>
+            <label>Password*</label>
+            <div class="input-group">
+                <input type="password"  name="password" minlength="6">
+            </div>
+        </div>
+        
+        <div>
+            <input type="submit"/>
+        </div>
+    </form>
+    <br>
+    <a href="/signup"><button>signup</button></a>
+    </center>
+</body>
+</html>

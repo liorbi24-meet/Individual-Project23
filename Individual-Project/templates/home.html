@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>home page</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+</head>
+<body>
+    <ul>
+        <li><a class="active" href="/home">Home</a></li>
+        <li><a href="/get_new_img">new img</a></li>
+        <li><a href="/history">history</a></li>
+        <li><a href="/signout">logout</a></li>
+    </ul>
+
+    <div calss = "div1">
+        <h1>welcome {{username["username"]}} to dog api</h1>
+    </div>
+    <div class="div2">
+        <p>here you can get a randome img of dog </p>
+        <p>from the internet and sjare it to your freinds</p>
+        <p>here is a randome img for you to see:</p>
+    </div>
+    <img class="home_img"src="{{img}}" width="400" height="500">
+</body>
+</html>
