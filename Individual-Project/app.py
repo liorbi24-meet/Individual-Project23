@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import session as login_session
 import pyrebase
 import requests
+import os
+
 config = {
     "apiKey": "AIzaSyBcE8jTyJuqH1gOncIPEHlrGLjE7geKuWU",
     "authDomain": "indv-project-d1395.firebaseapp.com",
@@ -17,14 +19,29 @@ auth = firebase.auth()
 db = firebase.database()
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['SECRET_KEY'] = 'super-secret-key'
+UPLOAD_FOLDER = 'static/images/pets'
+ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
 
+
+def spliting(filepath):
+    img = str(filepath).split("'")[1]
+    slash = "/"
+    return f'{UPLOAD_FOLDER}{slash}{img}'
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+def upload_file(file):
+    if request.method == 'POST':
+        if file and allowed_file(file.filename):
+            filename = file.filename
+            file.save(UPLOAD_FOLDER + "/" + filename)
 
 def get_img():
     URL = "https://dog.ceo/api/breeds/image/random"
     resp = requests.get(url = URL)
     resp = resp.text
     return resp.split('"')[3]
-
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -41,8 +58,29 @@ def signup():
             return redirect(url_for('home'))
         except Exception as e:
             print(e)
-    return render_template("signup.html")
+    return render_template("signup.html", img=get_img())
 
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        try:
+            UID = login_session['user']['localId']
+            photo = request.files['dog_pic']
+            upload_file(photo)
+            print(photo)
+            img_to_set = {"img": spliting(photo), "username":db.child("Users").child(UID).get().val()["username"]}
+            print(img_to_set)
+            db.child("Posts_uploaded").push(img_to_set)
+            return redirect(url_for('upload'))
+        except Exception as e:
+            print(e)
+            return redirect(url_for('error'))
+    else:
+        return render_template('publish_post.html', img=get_img())
+
+@app.route('/error', methods=['GET', 'POST'])
+def error():
+    return render_template("error.html", img = get_img())
 
 @app.route('/', methods=['GET', 'POST'])
 def signin():
@@ -55,7 +93,7 @@ def signin():
             return redirect(url_for('home'))
         except Exception as e:
             print(e)
-    return render_template("signin.html")
+    return render_template("signin.html", img=get_img())
 
 
 
@@ -87,8 +125,14 @@ def get_new_img():
         db.child("Photos").child(UID).push(img_to_set)
         choice = request.form['yesOrNo'] 
         if choice == 'Yes': 
-            pass
+            db.child("Posts").push(img_to_set)
     return render_template("get_new_img.html", img=img)
+
+
+@app.route('/show_posts',  methods=['GET', 'POST'])
+def show_posts():
+    return render_template("show_posts.html", list=db.child('Posts').get().val(), second_list=db.child('Posts_uploaded').get().val())
+
 
 if __name__ == '__main__':
     app.run(debug=True)

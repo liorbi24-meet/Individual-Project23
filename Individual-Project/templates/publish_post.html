@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="static/css/upload.css" />	
+	<title>publish post</title>
+</head>
+<body background="{{img}}">
+    <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/get_new_img">new img</a></li>
+        <li><a href="/history">history</a></li>
+        <li><a href="/show_posts">posts</a></li>
+        <li><a class="active" href="/upload">publish post</a>
+        <li><a href="/signout">logout</a></li>
+    </ul>
+    <div class="center-content">
+        <div class="wrapper">
+            <div class="container">
+                <h1>Publish Post</h1>
+                <form method="post" action="/upload" enctype="multipart/form-data">
+                    <input type="file" name="dog_pic" placeholder="Photo"/>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
